@@ -18,7 +18,7 @@ const handleButtonClick = function() {
     totalCost += itemPrice;
 
     // Template strings (literal) to easily combine our variables and text into one message
-    let message = `Current Total: $<${totalCost}>`;
+    let message = `Current Total: $${totalCost}`;
     
     // This is basic decision-making in JavaScript!
     // Use a simple 'if' statement to make our page react differently based on clickCount.
@@ -34,7 +34,7 @@ const handleButtonClick = function() {
     // This is how JavaScript makes changes visible on the web page!
     totalDisplayElement.textContent = message;
 
-    console.log(`Button Clicked! Current click count: ${totalCost}`);
+    console.log(`Item added! Current total cost: ${totalCost}`);
 };
 
 
@@ -48,5 +48,4 @@ document.addEventListener('DOMContentLoaded', function(){
     // When 'updateButton' receives a 'click' event, the 'handleButtonClick' function will execute.
     addItemButton.addEventListener('click', handleButtonClick);
 
-    totalDisplayElement.textContent = `Welcome! Click the button below to start counting`
 })
