@@ -1,60 +1,40 @@
 console.log('Hello from app.js! Your JavaScript is connected and running!');
-// --- Part 1: Function, EventListener and References ---
 
-// We get references to the HTML elements our JavaScript needs to interact with.
-// We use 'const' because these references themselves won't change, even if their content does.
-// Get a reference to the main form element by its ID.
+// Module import for form-related helper functions
+import * as formHandler from './form-handler.js';
+
+// Reference to the main carbon footprint form element
 const carbonFootprintForm = document.getElementById('carbonFootprintForm');
 
-// Using form.querySelector() is good practice for elements inside a specific parent (our form).
+// Reference to the household members input inside the form
 const householdMembersInput = carbonFootprintForm.querySelector('#householdMembers');
 
-// Get a reference to the 'Clear Form' button.
+// Reference to the button used to clear the form
 const clearFormButton = document.getElementById('clearFormButton');
 
-// --- Part 2: Code handleFormSubmit and handleClearForm Functions ---
-
-// Handles the Form submission event.
-// @param {Event} event - The event object provided by the browser.
-const handleFormSubmit = function(event) {
-    // IMPORTANT: event.preventDefault()
-    // This stops the browser's default behavior of reloading the page when a form is submitted.
+// Handles form submission, prevents default behavior, and processes input values
+const handleFormSubmit = function (event) {
     event.preventDefault();
     console.log(event);
-    // The '.value' property always returns a string.
-    // parseInt() converts that string into a whole number.
-    // The '|| 1' is a safety net: if the input is empty or invalid, it defaults to 1.
+    formHandler.getFormInputs();
     const householdMembers = parseInt(householdMembersInput.value) || 1;
-    // console.log(typeof householdMembers)
-    // Log the collected data to the console.
     console.log(`Form submitted with household members of ${householdMembers}`);
-}
+};
 
-// Handles the Clear Form button.
-const handleClearForm = function() {
-    // The form.reset() method is a built-in browser function that resets all form fields
-    // back to their initial values as defined in the HTML.
-    // Manually ensure the default value for 'householdMembers' is 1.
+// Clears form data and resets inputs to default values
+const handleClearForm = function () {
+    formHandler.clearForm();
     carbonFootprintForm.reset();
     householdMembersInput.value = 1;
     console.log('Clear button clicked');
-}
+};
 
-
-
-// The main initialization function for our application.
-// This function sets up all the event listeners.
-// The 'DOMContentLoaded' event is crucial!
+// Initializes the application and attaches required event listeners
 const init = function () {
-    console.log('App initialized: DOM is ready! Try submitting the form or clearing it.')
-    
-    // Attach the 'submit' event listener to our main form.
-    // When the form is submitted, the 'handleFormSubmit' function will be called.
+    console.log('App initialized: DOM is ready! Try submitting the form or clearing it.');
     carbonFootprintForm.addEventListener('submit', handleFormSubmit);
-
-    // Attach the 'click' event listener to our "Clear Form" button.
-    // When the button is clicked, the 'handleClearForm' function will be called.
     clearFormButton.addEventListener('click', handleClearForm);
 };
 
+// Runs initialization once the DOM content has fully loaded
 document.addEventListener('DOMContentLoaded', init);
