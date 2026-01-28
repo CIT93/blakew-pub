@@ -3,7 +3,7 @@ console.log('Hello from app.js! Your JavaScript is connected and running!')
 // We use document.getElementById() to get a reference to an element by its unique ID.
 // We store these references in 'const' variables because the elements themselves won't change.
 const totalDisplayElement = document.getElementById("total-display");
-const updateButton = document.getElementById("add-item-btn");
+const addItemButton = document.getElementById("add-item-btn");
 
 //These variables will change as the user interacts with the page.
 let totalCost = 0;
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function(){
     console.log('DOM fully loaded and parsed, App is ready for interaction')
     // Attach an event listener to our 'updateButton.
     // When 'updateButton' receives a 'click' event, the 'handleButtonClick' function will execute.
-    updateButton.addEventListener('click', handleButtonClick);
+    addItemButton.addEventListener('click', handleButtonClick);
 
     totalDisplayElement.textContent = `Welcome! Click the button below to start counting`
 })
