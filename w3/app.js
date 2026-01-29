@@ -1,40 +1,51 @@
-console.log('Hello from app.js! Your JavaScript is connected and running!');
+console.log('Hello from app.js! Your JavaScript is connected and running!')
+// --- Part 1: Select HTML Elements ---
+// We use document.getElementById() to get a reference to an element by its unique ID.
+// We store these references in 'const' variables because the elements themselves won't change.
+const totalDisplayElement = document.getElementById("total-display");
+const addItemButton = document.getElementById("add-item-btn");
 
-// Module import for form-related helper functions
-import * as formHandler from './form-handler.js';
+//These variables will change as the user interacts with the page.
+let totalCost = 0;
+const itemPrice = 15;
 
-// Reference to the main carbon footprint form element
-const carbonFootprintForm = document.getElementById('carbonFootprintForm');
+// --- Part 2: Define a Function that Reacts to a Click---
+// A function is a block of code designed to perform a particular task.
+ 
+const handleButtonClick = function() {
+    // clickCount = clickCount + 1;
+    // Increase clickCount by 1 each time the button is clicked
+    totalCost += itemPrice;
 
-// Reference to the household members input inside the form
-const householdMembersInput = carbonFootprintForm.querySelector('#householdMembers');
+    // Template strings (literal) to easily combine our variables and text into one message
+    let message = `Current Total: $${totalCost}`;
+    
+    // This is basic decision-making in JavaScript!
+    // Use a simple 'if' statement to make our page react differently based on clickCount.
+    if(totalCost >= 60) {
+        // We can even change the style of an HTML element directly with JavaScript!
+        // Change text color
+        message += '(Over Budget!)';
+        totalDisplayElement.style.color = 'red';
+    } else {
+         totalDisplayElement.style.color = 'green';
+    }
+    // Update the text content of our paragraph element on the page.
+    // This is how JavaScript makes changes visible on the web page!
+    totalDisplayElement.textContent = message;
 
-// Reference to the button used to clear the form
-const clearFormButton = document.getElementById('clearFormButton');
-
-// Handles form submission, prevents default behavior, and processes input values
-const handleFormSubmit = function (event) {
-    event.preventDefault();
-    console.log(event);
-    formHandler.getFormInputs();
-    const householdMembers = parseInt(householdMembersInput.value) || 1;
-    console.log(`Form submitted with household members of ${householdMembers}`);
+    console.log(`Item added! Current total cost: ${totalCost}`);
 };
 
-// Clears form data and resets inputs to default values
-const handleClearForm = function () {
-    formHandler.clearForm();
-    carbonFootprintForm.reset();
-    householdMembersInput.value = 1;
-    console.log('Clear button clicked');
-};
 
-// Initializes the application and attaches required event listeners
-const init = function () {
-    console.log('App initialized: DOM is ready! Try submitting the form or clearing it.');
-    carbonFootprintForm.addEventListener('submit', handleFormSubmit);
-    clearFormButton.addEventListener('click', handleClearForm);
-};
+document.addEventListener('DOMContentLoaded', function(){
+    // --- Part 3: Make the Button Clickable (Event Listener) ---
+    // This part ensures our JavaScript code runs only AFTER the HTML is fully loaded and parsed.
+    // The 'DOMContentLoaded' event is perfect for this. It fires when the HTML document is ready.
 
-// Runs initialization once the DOM content has fully loaded
-document.addEventListener('DOMContentLoaded', init);
+    console.log('DOM fully loaded and parsed, App is ready for interaction')
+    // Attach an event listener to our 'updateButton.
+    // When 'updateButton' receives a 'click' event, the 'handleButtonClick' function will execute.
+    addItemButton.addEventListener('click', handleButtonClick);
+
+})
