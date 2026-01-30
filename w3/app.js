@@ -1,53 +1,39 @@
+// Module import for order-related helper functions
 import * as orderForm from "./order-handler.js";
 
-console.log('Hello from app.js! Your JavaScript is connected and running!')
-// --- Part 1: Select HTML Elements ---
-// We use document.getElementById() to get a reference to an element by its unique ID.
-// We store these references in 'const' variables because the elements themselves won't change.
-const totalDisplayElement = document.getElementById("total-display");
-const addItemButton = document.getElementById("add-item-btn");
+// Reference to the main form element
+const customOrderForm = document.getElementById('order-form');
 
-//These variables will change as the user interacts with the page.
-let totalCost = 0;
-const itemPrice = 15;
+// Reference to order-summary div
+const orderSummary = document.getElementById('order-summary');
 
-// --- Part 2: Define a Function that Reacts to a Click---
-// A function is a block of code designed to perform a particular task.
- 
-const handleButtonClick = function() {
-    // clickCount = clickCount + 1;
-    // Increase clickCount by 1 each time the button is clicked
-    totalCost += itemPrice;
+// Reference to gift wrap input for output message purposes
+const giftWrapInput = customOrderForm.querySelector('#gift-wrap');
 
-    // Template strings (literal) to easily combine our variables and text into one message
-    let message = `Current Total: $${totalCost}`;
-    
-    // This is basic decision-making in JavaScript!
-    // Use a simple 'if' statement to make our page react differently based on clickCount.
-    if(totalCost >= 60) {
-        // We can even change the style of an HTML element directly with JavaScript!
-        // Change text color
-        message += '(Over Budget!)';
-        totalDisplayElement.style.color = 'red';
+// Handles form submission, prevents default behavior, and processes input values
+const handleOrderSubmit = function(event) {
+    event.preventDefault();
+    const orderData = orderForm.getOrderInputs();
+    let message = `Ordered ${orderData.qty} ${orderData.size} T-Shirt(s)`;
+    console.log(`Form Inputs - Object Literal:`);
+    console.log(`key of qty value of ${orderData.qty}`);
+    console.log(`key of size value of ${orderData.size}`);
+    console.log(`key of giftWrap value of ${orderData.giftWrap}`);
+    console.log(orderData);
+    if(giftWrapInput.checked) {
+        message = `Ordered ${orderData.qty} ${orderData.size} T-Shirt(s) with gift wrap`;
+        console.log(`Order for ${orderData.qty} ${orderData.size} T-Shirt(s) with gift wrap placed`);
     } else {
-         totalDisplayElement.style.color = 'green';
+        console.log(`Order for ${orderData.qty} ${orderData.size} T-Shirt(s) placed`);
     }
-    // Update the text content of our paragraph element on the page.
-    // This is how JavaScript makes changes visible on the web page!
-    totalDisplayElement.textContent = message;
+    orderSummary.textContent = message;
+}
 
-    console.log(`Item added! Current total cost: ${totalCost}`);
-};
+// Init function
+const init = function () {
+    console.log('App initialized: DOM is ready! Try submitting an order!');
+    customOrderForm.addEventListener('submit', handleOrderSubmit);
+}
 
-
-document.addEventListener('DOMContentLoaded', function(){
-    // --- Part 3: Make the Button Clickable (Event Listener) ---
-    // This part ensures our JavaScript code runs only AFTER the HTML is fully loaded and parsed.
-    // The 'DOMContentLoaded' event is perfect for this. It fires when the HTML document is ready.
-
-    console.log('DOM fully loaded and parsed, App is ready for interaction')
-    // Attach an event listener to our 'updateButton.
-    // When 'updateButton' receives a 'click' event, the 'handleButtonClick' function will execute.
-    // addItemButton.addEventListener('click', handleButtonClick);
-
-})
+// Runs initialization once the DOM content has fully loaded
+document.addEventListener('DOMContentLoaded', init);
