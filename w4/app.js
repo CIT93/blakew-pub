@@ -1,6 +1,7 @@
 // Module import for order-related helper functions
 import * as orderForm from "./order-handler.js";
 import * as priceCalculator from "./price-calculator.js";
+import * as orderDisplay from "./order-display.js";
 
 // Reference to the main form element
 const customOrderForm = document.getElementById('order-form');
@@ -18,19 +19,19 @@ const orders = [];
 const handleOrderSubmit = function(event) {
     event.preventDefault();
     const orderData = orderForm.getOrderInputs();
-    let message = `Ordered ${orderData.qty} ${orderData.size} T-Shirt(s)`;
-    console.log(`Form Inputs - Object Literal:`);
-    console.log(`key of qty value of ${orderData.qty}`);
-    console.log(`key of size value of ${orderData.size}`);
-    console.log(`key of giftWrap value of ${orderData.giftWrap}`);
-    console.log(orderData);
-    if(giftWrapInput.checked) {
-        message = `Ordered ${orderData.qty} ${orderData.size} T-Shirt(s) with gift wrap`;
-        console.log(`Order for ${orderData.qty} ${orderData.size} T-Shirt(s) with gift wrap placed`);
-    } else {
-        console.log(`Order for ${orderData.qty} ${orderData.size} T-Shirt(s) placed`);
-    }
-    orderSummary.textContent = message;
+    // let message = `Ordered ${orderData.qty} ${orderData.size} T-Shirt(s)`;
+    // console.log(`Form Inputs - Object Literal:`);
+    // console.log(`key of qty value of ${orderData.qty}`);
+    // console.log(`key of size value of ${orderData.size}`);
+    // console.log(`key of giftWrap value of ${orderData.giftWrap}`);
+    // console.log(orderData);
+    // if(giftWrapInput.checked) {
+    //     message = `Ordered ${orderData.qty} ${orderData.size} T-Shirt(s) with gift wrap`;
+    //     console.log(`Order for ${orderData.qty} ${orderData.size} T-Shirt(s) with gift wrap placed`);
+    // } else {
+    //     console.log(`Order for ${orderData.qty} ${orderData.size} T-Shirt(s) placed`);
+    // }
+    //orderSummary.textContent = message;
     const calculatedPrice = priceCalculator.calculateTotal(orderData);
     console.log(calculatedPrice);
     // Creating a newOrder object, then pushing the new object to the orders array.
@@ -41,12 +42,14 @@ const handleOrderSubmit = function(event) {
     };
     orders.push(newOrder);
     console.log(orders);
+    orderDisplay.displayOrder(newOrder);
 }
 
 // Init function
 const init = function () {
     console.log('App initialized: DOM is ready! Try submitting an order!');
     customOrderForm.addEventListener('submit', handleOrderSubmit);
+    orderDisplay.hideOrder();
 }
 
 // Runs initialization once the DOM content has fully loaded
