@@ -2,6 +2,7 @@
 import * as orderForm from "./order-handler.js";
 import * as priceCalculator from "./price-calculator.js";
 import * as orderDisplay from "./order-display.js";
+import * as orderStorage from './order-storage.js';
 
 // Reference to the main form element
 const customOrderForm = document.getElementById('order-form');
@@ -35,6 +36,14 @@ const handleOrderSubmit = function(event) {
 // Init function
 const init = function () {
     console.log('App initialized: DOM is ready! Try submitting an order!');
+    // On startup, attempt to load any previously saved orders from localStorage.
+        const loadedOrders = orderStorage.loadOrders();
+        if(loadedOrders.length > 0) {
+            orders.push(...loadedOrders);
+            console.log('Orders loaded from localStorage');
+        } else {
+            console.log('No orders found in localStorage. Starting fresh');
+        }
     customOrderForm.addEventListener('submit', handleOrderSubmit);
     orderDisplay.hideOrder();
 }

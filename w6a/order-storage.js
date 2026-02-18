@@ -29,5 +29,4 @@ export const loadOrders = function() {
         console.error(`Error loading orders from localStorage: ${err}`);
         localStorage.removeItem(LOCAL_STORAGE_KEY);
     }
-    
 };
