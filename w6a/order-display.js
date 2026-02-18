@@ -11,7 +11,11 @@ export const displayOrder = function(order) {
     totalCostDisplay.textContent = `${order.calculatedPrice}`;
     quantityDisplay.textContent = `${order.qty}`;
     sizeDisplay.textContent = `${order.size}`;
-    giftWrapDisplay.textContent = `${order.giftWrap}`;
+    if (order.giftWrap === true) {
+        giftWrapDisplay.textContent = "Yes";
+    } else {
+        giftWrapDisplay.textContent = "No";
+    }
 
     // Make the entire results section visible
     resultsContainer.style.display = 'block';

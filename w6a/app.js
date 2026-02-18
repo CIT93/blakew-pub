@@ -19,19 +19,6 @@ const orders = [];
 const handleOrderSubmit = function(event) {
     event.preventDefault();
     const orderData = orderForm.getOrderInputs();
-    // let message = `Ordered ${orderData.qty} ${orderData.size} T-Shirt(s)`;
-    // console.log(`Form Inputs - Object Literal:`);
-    // console.log(`key of qty value of ${orderData.qty}`);
-    // console.log(`key of size value of ${orderData.size}`);
-    // console.log(`key of giftWrap value of ${orderData.giftWrap}`);
-    // console.log(orderData);
-    // if(giftWrapInput.checked) {
-    //     message = `Ordered ${orderData.qty} ${orderData.size} T-Shirt(s) with gift wrap`;
-    //     console.log(`Order for ${orderData.qty} ${orderData.size} T-Shirt(s) with gift wrap placed`);
-    // } else {
-    //     console.log(`Order for ${orderData.qty} ${orderData.size} T-Shirt(s) placed`);
-    // }
-    //orderSummary.textContent = message;
     const calculatedPrice = priceCalculator.calculateTotal(orderData);
     console.log(calculatedPrice);
     // Creating a newOrder object, then pushing the new object to the orders array.
