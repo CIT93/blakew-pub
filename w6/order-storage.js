@@ -30,3 +30,10 @@ export const loadOrders = function() {
         localStorage.removeItem(LOCAL_STORAGE_KEY);
     }
 };
+
+// Clear all data from localStorage for our app.
+// This function removes the specific key used by our app from localStorage.
+export const clearAllOrders = function() {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    console.log('All orders cleared from local storage');
+}
