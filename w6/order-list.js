@@ -1,5 +1,4 @@
-const orderTable = document.getElementById('order-table');
-const orderTableBody = orderTable.querySelector('order-table-body');
+const orderTableBody = document.getElementById('order-table-body');
 
 // Formats a timestamp into a local date string.
 const formatDateForDisplay = function(timestamp) {
@@ -21,6 +20,10 @@ const createTableRow = function(order) {
         <td>${order.qty}</td>
         <td>${order.size}</td>
         <td>${order.calculatedPrice}</td>
+        <td class="action-cell">
+            <button class="action-button edit" data-id="${order.id}">Edit</button>
+            <button class="action-button delete" data-id="${order.id}">Delete</button>
+        </td>
     `;
     return row;
 };
