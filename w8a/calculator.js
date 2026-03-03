@@ -2,17 +2,13 @@
 // @param {number} householdMembers - Number of people in the household.
 
 const calculatedHouseholdPoints = function(householdMembers) {
-    // console.log(householdMembers);
-    // omits block delimiters for single statements
     if(householdMembers === 1) return 14;
     else if(householdMembers === 2) return 12;
     else if(householdMembers === 3) return 10;
     else if(householdMembers === 4) return 8;
     else if(householdMembers === 5) return 6;
-    else if(householdMembers > 5) return 4; // 6+ people total
-    return 0; // Default or invalid input
-
-
+    else if(householdMembers > 5) return 4;
+    return 0;
 };
 
 // Calculates points for Home Size based on WikiHow Method 1
@@ -24,7 +20,7 @@ const calculateHomeSizePoints = function(homeSquareFootage, isApartment) {
     else if(homeSquareFootage > 2000) return 10;
     else if(homeSquareFootage >= 1000) return 7;
     else if(homeSquareFootage > 0) return 4;
-    return 0;  // Default or invalid input
+    return 0;
 };
 
 // @param {string} dietType - Type of diet ('meatHeavy', 'average', 'vegetarian', 'vegan')
@@ -51,27 +47,17 @@ const calculateFoodPackagingPoints = function(foodPackaging) {
     };
 };
 
-// This module contains the core logic for calculating carbon footprint points.
-// Calculate points for each category using our dedicated helper functions
-// This function orchestrates calls to the smaller, specialized calculation functions.
-// It exports 'calculateFootprint' so other modules (like app.js) can use it.
-// Return the breakdown of points for each category, and the total (for now we will just setup a key and return it's value)
-// @param {Object} data - An object containing input values for the categories:
-// householdMembers (number)
-// homeSquareFootage (number)
-// isApartment (boolean)
-// dietType (string)
-// foodPackaging (string)
-
 export const calculateFootprint = function(data) { 
-    // console.log('inside calculateFootprint function in the calculator.js module');
     const householdPoints = calculatedHouseholdPoints(data.householdMembers);
     const homeSizePoints = calculateHomeSizePoints(data.homeSquareFootage, data.isApartment);
     const dietTypePoints = calculateFoodDietPoints(data.dietType);
     const foodPackagingPoints = calculateFoodPackagingPoints(data.foodPackaging);
 
-    // Sum up all category points for the total footprint
-    const totalFootprintPoints = householdPoints + homeSizePoints + dietTypePoints + foodPackagingPoints;
+    const totalFootprintPoints =
+        householdPoints +
+        homeSizePoints +
+        dietTypePoints +
+        (foodPackagingPoints * 2);
 
     return {
         totalFootprint: totalFootprintPoints,

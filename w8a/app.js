@@ -39,7 +39,7 @@ const handleFormSubmit = function (event) {
     const newEntry = {
         ...formData,
         ...calculatedResults,
-        id: storage.generateUniqueId(),
+        id: storage.generateUniqueID(),
         timestamp: new Date().toISOString()
     };
 
