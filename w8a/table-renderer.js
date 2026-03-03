@@ -108,7 +108,7 @@ const createTableRow = function(entry) {
             <button class="action-button edit" data-id="${entry.id}">Edit</button>
             <button class="action-button delete" data-id="${entry.id}">Delete</button>
         </td>
-    ;
+    `;
 
     return row;
 };
