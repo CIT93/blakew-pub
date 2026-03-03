@@ -57,7 +57,7 @@ export const calculateFootprint = function(data) {
         householdPoints +
         homeSizePoints +
         dietTypePoints +
-        (foodPackagingPoints * 2);
+        foodPackagingPoints;
 
     return {
         totalFootprint: totalFootprintPoints,
