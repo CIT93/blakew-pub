@@ -53,7 +53,7 @@ const handleOrderSubmit = function(event) {
     const newOrder = {
     ...orderData,
     ...calculatedPrice,
-    id: orderStorage.generateUniqueID(),
+    id: Date.now().toString(),
     timestamp: new Date().toISOString()
     };
     orders.push(newOrder);
