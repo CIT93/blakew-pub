@@ -14,7 +14,7 @@ const createTableRow = function(order) {
     const row = document.createElement('tr');
     // Store the order's unique ID directly on the row using a data-id attribute.
     row.dataset.id = order.id;
-    // Set the inner HTML of the row using a template literal.
+    // Set the inner HTML of the row using a template literal. 
     row.innerHTML = `
         <td>${formatDateForDisplay(order.timestamp)}</td>
         <td>${order.qty}</td>
