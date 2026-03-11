@@ -58,7 +58,10 @@ const handleOrderSubmit = function(event) {
     };
     orders.push(newOrder);
     orderStorage.saveOrders(orders);
-    orderList.renderOrders(orders);
+    orderList.renderOrders(orders, {
+        onDelete: handleDeleteOrder,
+        onEdit: handleEditOrder
+    });
     console.log(orders);
     resetAllUIStates();
 }
@@ -78,13 +81,13 @@ const performClearAllOrders = function() {
 // Handles the "Delete" action for a specific order.
 // This will be implemented in Week 7.
 const handleDeleteOrder = function(id) {
-    console.log(`Delete button clicked for ID: ${id} functionality added in week 7`);
+    console.log("App.js: Requesting delete for order", id);
 
     resetAllUIStates();
 }
 // Handles the "Edit" button click for a specific order.
 const handleEditOrder = function(id) {
-    console.log(`Edit button clicked for ID: ${id} functionality added in week 7`);
+    console.log("App.js: Requesting edit for order", id);
 
     resetAllUIStates();
 }
@@ -97,7 +100,10 @@ const init = function () {
     if(loadedOrders.length > 0) {
         orders.push(...loadedOrders);
         console.log('Orders loaded from localStorage');
-        orderList.renderOrders(orders);
+        orderList.renderOrders(orders, {
+            onDelete: handleDeleteOrder,
+            onEdit: handleEditOrder
+        });
     };
     customOrderForm.addEventListener('submit', handleOrderSubmit);
     // init function - Event listener for "Clear All Data"

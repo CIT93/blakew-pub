@@ -1,3 +1,5 @@
+let moduleCallbacks = {};
+
 const orderTableBody = document.getElementById('order-table-body');
 
 // Formats a timestamp into a local date string.
@@ -21,8 +23,8 @@ const createTableRow = function(order) {
         <td>${order.size}</td>
         <td>${order.calculatedPrice}</td>
         <td class="action-cell">
-            <button class="action-button edit" data-id="${order.id}">Edit</button>
-            <button class="action-button delete" data-id="${order.id}">Delete</button>
+            <button class="action-button edit-btn" data-id="${order.id}">Edit</button>
+            <button class="action-button delete-btn" data-id="${order.id}">Delete</button>
         </td>
     `;
     return row;
@@ -38,11 +40,15 @@ orderTableBody.addEventListener('click', function(event) {
     // there will be no ID. So we stop the function immediately.
     if (!id) return;
 
-    // 3. Temporary Test: Log the ID to prove it works!
-    console.log("Clicked button with ID:", id); 
+    if(target.classList.contains('delete-btn') && typeof moduleCallbacks.onDelete === 'function') {
+        moduleCallbacks.onDelete(id);
+    } else if (target.classList.contains('edit-btn') && typeof moduleCallbacks.onEdit === 'function') {
+        moduleCallbacks.onEdit(id);
+    }
 });
 
-export const renderOrders = function(orders) {
+export const renderOrders = function(orders, callbacks) {
+    moduleCallbacks = callbacks;
     // Loop through each sorted entry and create a table row for it.
     // Clear any existing rows in the table body to avoid duplicates on re-render.
     orderTableBody.innerHTML = '';
